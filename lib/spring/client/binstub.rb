@@ -12,10 +12,10 @@ module Spring
       # happen, and so we'll fall back to the lines after this block, which
       # should cause the "unsprung" version of the command to run.
       LOADER = <<CODE
-begin
+# begin
   load File.expand_path("../spring", __FILE__)
-rescue LoadError
-end
+# rescue LoadError
+# end
 CODE
 
       # The defined? check ensures these lines don't execute when we load the
@@ -37,6 +37,8 @@ unless defined?(Spring)
   ENV["GEM_HOME"] = ""
   ENV["GEM_PATH"] = Bundler.bundle_path.to_s
   Gem.paths = ENV
+
+  puts Bundler.bundle_path.to_s
 
   Gem.try_activate("spring/binstub")
   require "spring/binstub"
